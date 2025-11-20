@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Calculator Client</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sum Calculator Service</h1>
+    <div>
+        <label for="numberA">Enter first number (a):</label>
+        <input type="number" id="numberA" placeholder="e.g., 1" required>
+    </div>
+    <div>
+        <label for="numberB">Enter second number (b):</label>
+        <input type="number" id="numberB" placeholder="e.g., 1" required>
+    </div>
+    <button onclick="calculateSum()">Calculate Sum</button>
+    <div id="result"></div>
+
+    <script>
+        // Функция для отправки запроса к серверу и обработки ответа
+        async function calculateSum() {
+            // Получение значений из полей ввода
+            const a = document.getElementById('numberA').value;
+            const b = document.getElementById('numberB').value;
+            const resultDiv = document.getElementById('result');
+
+            // Проверка, что оба поля заполнены
+            if (a === '' || b === '') {
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'Please enter both numbers';
+                return;
+            }
+
+            try {
+                // Формирование URL с query-параметрами
+                //const url = `http://localhost:3000/sum?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`;
+                const url = `https://server-summ.onrender.com/sum?a=${encodeURIComponent(a)}&b=${encodeURIComponent(b)}`;
+                // Выполнение GET-запроса к серверу
+                const response = await fetch(url);
+                // Парсинг ответа в формате JSON
+                const data = await response.json();
+
+                // Проверка успешности ответа
+                if (response.ok) {
+                    // Отображение результата
+                    resultDiv.className = '';
+                    resultDiv.textContent = `Sum of ${data.a} and ${data.b} is ${data.sum}`;
+                } else {
+                    // Отображение ошибки от сервера
+                    resultDiv.className = 'error';
+                    resultDiv.textContent = data.error || 'An error occurred';
+                }
+            } catch (error) {
+                // Обработка ошибок сети или других проблем
+                resultDiv.className = 'error';
+                resultDiv.textContent = 'Failed to connect to the server';
+            }
+        }
+    </script>
+</body>
+</html>
