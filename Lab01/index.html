@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Веб-калькулятор – Сума</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 20px;
+            text-align: center;
+        }
+        .row {
+            margin-bottom: 12px;
+        }
+        label {
+            display: block;
+            margin-bottom: 4px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 6px 8px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Калькулятор (сума)</h1>
+
+    <div class="row">
+        <label for="a">Перше число:</label>
+        <input type="text" id="a" placeholder="Введіть число">
+    </div>
+
+    <div class="row">
+        <label for="b">Друге число:</label>
+        <input type="text" id="b" placeholder="Введіть число">
+    </div>
+
+    <button type="button" onclick="calculate()">Додати</button>
+
+    <div id="result">Результат: —</div>
+
+    <script>
+        function calculate() {
+            const aInput = document.getElementById('a');
+            const bInput = document.getElementById('b');
+            const resultDiv = document.getElementById('result');
+
+            // замінюємо кому на крапку, щоб працювало 1,5
+            const a = parseFloat(aInput.value.replace(',', '.'));
+            const b = parseFloat(bInput.value.replace(',', '.'));
+
+            if (isNaN(a) || isNaN(b)) {
+                resultDiv.textContent = 'Результат: введіть обидва числа коректно';
+                return;
+            }
+
+            const sum = a + b;
+            resultDiv.textContent = 'Результат: ' + sum;
+        }
+    </script>
+</body>
+</html>
