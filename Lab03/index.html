@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Сапер</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="game-wrapper">
+        <h1>Сапер</h1>
+
+        <div class="top-panel">
+            <div class="panel-item">
+                <span>Міни:</span>
+                <span id="mines-count">10</span>
+            </div>
+            <button id="reset-btn" type="button">Нова гра</button>
+            <div class="panel-item">
+                <span>Час:</span>
+                <span id="time-count">0</span> с
+            </div>
+        </div>
+
+        <div id="status" class="status">Клікніть по клітинці, щоб почати гру</div>
+
+        <div id="board" class="board"></div>
+
+        <p class="hint">
+            Ліва кнопка миші — відкрити клітинку.  
+            Права кнопка — поставити або зняти прапорець.
+        </p>
+    </div>
+</body>
+</html>
